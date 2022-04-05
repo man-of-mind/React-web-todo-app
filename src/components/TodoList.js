@@ -13,13 +13,14 @@ function TodoList() {
             }
             return todo
         })
-        setTodos(updatedTodos)
+
+        setTodos(updatedTodos);
     }
 
     const removeTodo = id => {
         const removedArr = [...todos].filter(todo => todo.id !== id)
-        setTodos(removedArr)
-        setTotal(removedArr.length)
+        setTodos(removedArr);
+        setTotal(removedArr.length);
     }
     
     const updateTodo = (todoId, newValue) => {
@@ -35,8 +36,7 @@ function TodoList() {
         }
         const newTodos = [todo, ...todos];
         setTodos(newTodos);
-        setTotal(newTodos.length)
-        
+        setTotal(newTodos.length);
     };
 
     return (
@@ -45,7 +45,6 @@ function TodoList() {
             <TodoForm onSubmit={addTodo} />
             <div className='tasks-number'>
                 <h3>Total task(s): {totalTask}</h3>
-                <h3>Incomplete tasks(s): 0{}</h3>
             </div>
             <Todo todos={todos} completeTodo={completeTodo} removeTodo={removeTodo} updateTodo={updateTodo}/>
         </div>

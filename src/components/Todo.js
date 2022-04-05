@@ -19,27 +19,23 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
 
     if (edit.id) {
         return <TodoForm edit={edit} onSubmit={submitUpdate} />
-    }
+    }    
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [isComplete, setIsComplete] = useState(new Array(todos.length).fill(false));
-    const handleOnChange = (position) => {
-    const updatedCheckedState = isComplete.map((item, index) =>
-        index === position ? !item : item
-    );
-    setIsComplete(updatedCheckedState);
-    };
-    
-    
-
+    const [isChecked, setChecked] = useState(Array(todos.length).fill(false));
+    const handleChange = (id) => {
+        const updatedState = isChecked.map((item,index) => {
+            return index === id ? !item : item;
+        })
+        setChecked(updatedState);
+    }  
 
     return todos.map((todo, index) => (
         <div className={todo.isComplete ? 'todo-row complete' : 'todo-row'} key={index}>
             <label class="contain">
-                <input type="checkbox" checked={isComplete[index]} onChange={handleOnChange(index)}/>
+                <input type="checkbox" checked={todo.isComplete ? true : false}/>
                 <span class="checkmark"></span>
             </label>
-            <input type="checkbox" id="topping" name="topping" value="Paneer" />
             <div key={todo.id} onClick={() => completeTodo(todo.id)} className='todo-text'>
                     {todo.text}
             </div>
