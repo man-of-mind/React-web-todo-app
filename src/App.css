@@ -1,3 +1,4 @@
+/*
 * {
     box-sizing: border-box;
     margin: 0;
@@ -188,4 +189,152 @@ h1 {
 
 .edit-icon {
     color: #fff;
+}
+
+*/
+
+.App {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    height: 100%;
+}
+
+.child-header {
+    flex: 1 1 20px;
+}
+
+.child-main {
+    flex: 3 3 60px;
+}
+
+.form-container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.form-child-small {
+    flex: 1 1 20px;
+}
+
+.form-child-big {
+    flex: 3 3 60px;
+}
+
+input {
+    font-size: 4vw;
+    height: 8vw;
+}
+
+button {
+    padding: 15px 32px;
+    margin: 5px;
+    color: white;
+    background-color: #FE7831;
+    border: 0;
+    font-size: 4vw;
+}
+
+button:hover {
+    background-color: black;
+    border-color: white;
+    border: 1px solid;
+}
+
+.back-link,
+.edit-link {
+    text-decoration: none;
+    color: white;
+    background-color: #FE7831;
+    padding: 15px 32px;
+}
+
+.back-link:hover,
+.edit-link:hover {
+    border: 1px solid;
+    border-color: white;
+    background-color: black;
+}
+
+h1 {
+    color: white;
+    font-size: 8vw;
+}
+
+.item-container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    height: 100%;
+}
+
+.item-child {
+    flex: 1 1 auto;
+}
+
+header {
+    background-color: #272727;
+}
+
+.nav-container {
+    display: flex;
+    flex-flow: row nowrap;
+    list-style: none;
+    justify-content: center;
+}
+
+.nav-child {
+    flex: 1 1 auto;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+}
+
+.nav-link {
+    font-size: 4vw;
+    text-decoration: none;
+    color: white;
+}
+
+.nav-link:hover {
+    color: #FE7831;
+}
+
+h1 {
+    color: white;
+    font-size: 8vw;
+}
+
+.item-container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    height: 100%;
+}
+
+.item-child {
+    flex: 1 1 auto;
+}
+
+main {
+    background-color: black;
+    height: 100%;
+    padding: 20px;
+    font-size: 4vw;
+}
+
+.three-container {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    height: 100%;
+}
+
+.three-child {
+    flex: 1 1 30px;
+}
+
+.name {
+    color: white;
 }
