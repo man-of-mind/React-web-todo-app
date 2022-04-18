@@ -1,34 +1,67 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
-
-class EditItem extends Component {
-  constructor(props) {
-    super(props);
-    this.onEdit = this.onEdit.bind(this);
+function EditItem(props) {
+  let params = useParams();
+  const item = props.items.filter(value => value.id === Number(params.id))
+  
+  function onEdit(e) {
+      e.preventDefault()
+      if (e.target[0].value.length !== 0) {
+          item.name = e.target[0].value;
+          item.start = e.target[1].value;
+          item.end = e.target[2].value;
+          props.onEdit(item);
+      }
+    props.navigate('/');
   }
-  onEdit(e) {
-//    this.props.location.onEdit(e);
-    this.props.navigate('/');
-  }
-  render() {
-    return (
-      <div className='form-container'>
-        <form className='form-child-big' onSubmit={this.onEdit}>
+ 
+  const [ newVal, setVal ] = useState(item[0].name)
+  const [ newStart, setStart ] = useState(item[0].start)
+  const [ newEnd, setEnd ] = useState(item[0].end)
+  return(
+      <div>
+        <form className='todo-form' onSubmit={onEdit}>
           <input
-            maxLength='25'
-            placeholder='Type something here'
-            defaultValue={this.props.location.name}
+            type='text'
+            placeholder='Update your plan'
+            name='text'
+            className='todo-input edit'
+            value={newVal}
+            onChange={(e) => setVal(e.target.value)}
           />
-          <br />
-          <br />
-          <button>Update</button>
+          <br></br>
+          <br></br>
+          <input
+            type='text'
+            placeholder='Update your plan'
+            name='text'
+            className='todo-input edit'
+            value={newStart}
+            onChange={(e) => setStart(e.target.value)}
+          />
+          <br/>
+          <br/>
+          <input
+            type='text'
+            placeholder='Update your plan'
+            name='text'
+            className='todo-input edit'
+            value={newEnd}
+            onChange={(e) => setEnd(e.target.value)}
+          />
+          <br></br>
+          <br></br>
+          <div className='add-back-button'>
+            <button className='todo-button edit'>Update</button>
+            <Link className='back' to='/'>
+              Back
+            </Link>
+          </div>
         </form>
-        <Link className='form-child-small back-link' to='/'>
-          Back
-        </Link>
       </div>
     );
   }
-}
+
+
 export default EditItem;

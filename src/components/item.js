@@ -1,45 +1,66 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { TiCancel } from 'react-icons/ti'
+import { TiEdit } from 'react-icons/ti'
 
 
-class Item extends Component {
-    constructor(props) {
-        super(props);
-        this.onDelete = this.onDelete.bind(this);
-        this.onEdit = this.onEdit.bind(this);
+function Item(props) {
+    const [ check, setChecked ] = useState(props.item.isComplete ? true : false);
+    let todos = JSON.parse(localStorage.getItem('data'))
+    const [ items, setItems ] = useState(todos);
+    function onDelete() {
+        props.onDelete(props.item);
     }
 
-    onDelete() {
-        this.props.onDelete(this.props.item);
-    }
-
-    onEdit(e) {
+    function onEdit(e) {
         e.preventDefault();
-        let newItem = this.props.item;
+        let newItem = props.item;
         if (e.target[0].value.length !== 0) {
           newItem.name = e.target[0].value;
-          this.props.onEdit(newItem);
+          newItem.start = e.target[1].value;
+          newItem.end = e.target[2].value;
+          newItem.isComplete = false;
+          props.onEdit(newItem);
         }
     }
-
-    render() {
-        return (
-            <div className='three-container'>
-                <div className='name three-child'>{this.props.item.name}</div>
-                <div className='delete three-child'>
-                <button onClick={this.onDelete}>Delete</button>
-                </div>
-                <div className='edit three-child'>
-                    <Link className='edit-link' to={{
-                        pathname: `/edit_item/${this.props.item.id}`,
-                        name: this.props.item.name,
-                        onEdit: this.onEdit
-                    }}>
-                        Edit
-                    </Link>
-                </div>
-            </div>
-        );
+    const url = {
+        pathname: `/edit_item/${props.item.id}`,
+        state: {
+            name: props.item.name,
+            onEdit: onEdit
+        }
     }
+    const completeTodo = e => {
+        todos = items.map(item => {
+            if (item.id === props.item.id) {
+                item.isComplete = !item.isComplete
+            }
+            return item;
+        });
+        setItems(todos);
+        console.log(items)
+        localStorage.setItem('data', JSON.stringify(items))
+        setChecked(e.target.checked)
+    }
+    return (
+        <div className='todo-row'>
+        <label className="contain">
+            <input 
+                type="checkbox" 
+                checked={check} 
+                onChange={(e) => completeTodo(e)}/>
+            <span className="checkmark"></span>
+        </label>
+        <div key={props.item.id} className='todo-text'>
+                {props.item.name}
+        </div>
+        <div className='icons'>
+            <TiCancel onClick={onDelete} className='delete-icon'/>
+            <Link to={url}>
+                <TiEdit className="edit-icon"/>
+            </Link>
+        </div>
+        </div>
+    );
 }
 export default Item;

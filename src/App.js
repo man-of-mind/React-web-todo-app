@@ -1,71 +1,67 @@
 import './App.css';
-import TodoList from './components/TodoList';
-import React, { Component } from 'react';
 import Header from './components/header';
 import Main from './components/main';
+import { useState, useEffect } from 'react'
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [],
-      nextId: 0
-    };
+function App(props) {
+  const [ items, setItems ] = useState([]);
+  const [ nextId, setNextId ] = useState(0);
+  useEffect(() => {
+    localStorage.setItem('data', JSON.stringify(items));
+  }, [items]);
 
-    this.handleAdd = this.handleAdd.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
 
-  }
-
-  handleAdd(e) {
+  function handleAdd(e) {
     e.preventDefault();
-    let newItems = this.state.items;
+    let newItems = items;
     if (e.target[0].value.length !== 0) {
-      newItems.push({name: e.target[0].value, id: this.state.nextId});
-      this.setState({
-        items: newItems,
-        nextId: this.state.nextId + 1
+      newItems.push({
+        name: e.target[0].value, 
+        id: nextId, start: e.target[1].value, 
+        end: e.target[2].value
       });
+      setItems(newItems)
+      setNextId(nextId + 1)
+      localStorage.setItem('data', JSON.stringify(items))
     }
   }
 
-  handleDelete(itemToBeDeleted) {
-    const newItems = this.state.items.filter(item => {
+  function handleDelete(itemToBeDeleted) {
+    let currentItems = JSON.parse(localStorage.getItem('data'))
+    const newItems = currentItems.filter(item => {
       return item.id !== itemToBeDeleted.id;
     });
-    this.setState({
-      items: newItems
-    });
+    setItems(newItems)
+    localStorage.setItem('data', JSON.stringify(items))
   }
 
-  handleEdit(itemToBeEdited) {
-    let newItems = this.state.items;
+  function handleEdit(itemToBeEdited) {
+    let newItems = JSON.parse(localStorage.getItem('data'))
     newItems = newItems.map(item => {
-      if (item.id === itemToBeEdited.id) {
+      if (item.id === itemToBeEdited[0].id) {
         item.name = itemToBeEdited.name;
+        item.start = itemToBeEdited.start;
+        item.end = itemToBeEdited.end;
       }
       return item;
     });
-    this.setState({
-      items: newItems
-    });
+    setItems(newItems)
+    localStorage.setItem('data', JSON.stringify(items))
   }
   
-
-  render() {
-    return (
-      <div className='App'>
-        <Header className="child-header" />
-        <Main className="child-main" 
-          items={this.state.items}
-          onAdd={this.handleAdd} 
-          onDelete={this.handleDelete} 
-          onEdit={this.handleEdit} />
-{/*        <TodoList /> */}
+  return (
+    <div>
+      <Header />
+      <div className='todo-app'>
+        <Main
+          items={items}
+          onAdd={handleAdd} 
+          onDelete={handleDelete} 
+          onEdit={handleEdit} />
       </div>
-    );
-  }
+    </div>
+  );
 }
+
 
 export default App;

@@ -10,7 +10,7 @@ function Header() {
                 <Link className='nav-link' to='/'>Home</Link>
             </li>
             <li className='nav-child'>
-                <Link className='nav-link' to='/add'>Add an item</Link>
+                <Link className='nav-link' to='/add'>Add new todo</Link>
             </li>
           </ul>
         </nav>

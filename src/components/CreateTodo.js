@@ -13,16 +13,39 @@ class CreateTodo extends Component {
   }
   render() {
     return (
-      <div className='form-container'>
-        <form className='form-child-big' onSubmit={this.onAdd}>
-          <input maxLength='25' placeholder='Type something here' />
-          <br />
-          <br />
-          <button>Add</button>
-        </form>
-        <Link className='form-child-small back-link' to='/'>
-          Back
-        </Link>
+      <div>
+        <form className='todo-form' onSubmit={this.onAdd}>
+          <input 
+            type='text'
+            placeholder='Enter a todo'
+            name='text'
+            className='todo-input'
+          />
+          <br/>
+          <br/>
+          <input 
+            type='text'
+            placeholder='Enter start time'
+            name='text'
+            className='todo-input'
+          />
+          <br/>
+          <br/>
+          <input 
+            type='text'
+            placeholder='Enter end time'
+            name='text'
+            className='todo-input'
+          />
+          <br/>
+          <br/>
+          <div className='add-back-button'>
+            <button className='todo-button back'>Add todo</button>
+            <Link className='back' to='/'>
+              Back
+            </Link>
+          </div>
+        </form>        
       </div>
     );
   }
