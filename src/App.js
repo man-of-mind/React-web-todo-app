@@ -11,19 +11,19 @@ function App(props) {
   }, [items]);
 
 
-  function handleAdd(e) {
-    e.preventDefault();
+  function handleAdd(data) {
+//    e.preventDefault();
     let newItems = items;
-    if (e.target[0].value.length !== 0) {
-      newItems.push({
-        name: e.target[0].value, 
-        id: nextId, start: e.target[1].value, 
-        end: e.target[2].value
-      });
-      setItems(newItems)
-      setNextId(nextId + 1)
-      localStorage.setItem('data', JSON.stringify(items))
-    }
+    newItems.push({
+      name: data.newtodo, 
+      id: nextId, 
+      start: data.startTime, 
+      end: data.endTime
+    });
+    
+    setItems(newItems)
+    setNextId(nextId + 1)
+    localStorage.setItem('data', JSON.stringify(items))
   }
 
   function handleDelete(itemToBeDeleted) {

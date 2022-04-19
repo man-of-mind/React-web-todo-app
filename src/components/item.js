@@ -38,7 +38,7 @@ function Item(props) {
             return item;
         });
         setItems(todos);
-        console.log(items)
+        
         localStorage.setItem('data', JSON.stringify(items))
         setChecked(e.target.checked)
     }
